@@ -1,12 +1,12 @@
-// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-// import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import Login from "./components/Login";
-// import SignUp from "./components/SignUp";
-import './index.css'
+import { LoginForm } from "./Pages/Login";
+// import { SignUp } from "./Pages/SignUp";
 
 function App() {
     return (
-        <Login />
+        <>
+            <LoginForm />
+            {/* <SignUp /> */}
+        </>
     );
 }
 
