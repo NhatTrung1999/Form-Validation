@@ -1,88 +1,97 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-  background: #76b852;
-  display: flex;
-  min-height: 90vh;
-  justify-content: center;
-  align-items: center;
+    background: #76b852;
+    display: flex;
+    min-height: 90vh;
+    justify-content: center;
+    align-items: center;
 }
 
 .form-container {
-  width: 360px;
-  background-color: white;
-  margin: auto;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  padding: 10px;
-  border-radius: 5px;
+    width: 360px;
+    background-color: white;
+    margin: auto;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 10px;
 }
 
 .success-message {
-  font-family: "Roboto", sans-serif;
-  background-color: #3f89f8;
-  padding: 15px;
-  color: white;
+    font-family: "Roboto", sans-serif;
+    background-color: #3f89f8;
+    padding: 15px;
+    color: white;
 }
 
 .form-field {
-  margin: 10px 0 10px 0;
-  padding: 15px;
-  font-size: 16px;
-  border: 0;
-  font-family: "Roboto", sans-serif;
-  border-radius: 5px;
-  font-weight: 600;
+    margin: 10px 0 10px 0;
+    padding: 15px;
+    font-size: 16px;
+    border: 0;
+    font-family: "Roboto", sans-serif;
+    border-radius: 5px;
+    font-weight: 500;
 }
 
 span {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  color: red;
-  margin-bottom: 15px;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    color: red;
+    margin-bottom: 15px;
 }
 
 input {
-  background: #f2f2f2;
+    background: #f2f2f2;
 }
 
 .error {
-  border-style: solid;
-  border: 2px solid #ffa4a4;
+    border-style: solid;
+    border: 2px solid #ffa4a4;
 }
 
 button {
-  background: #4caf50;
-  color: white;
-  cursor: pointer;
+    background: #4caf50;
+    color: white;
+    cursor: pointer;
 }
 
 button:disabled {
-  cursor: default;
+    cursor: default;
 }
 
 .login-registration {
-  margin: 5px;
-  display: flex;
-  justify-content: center;
-  font-weight: 600;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
 }
 .label-registration {
-  font-family: "Roboto", sans-serif;
-  margin-right: 5px;
+    font-family: "Roboto", sans-serif;
+    margin-right: 5px;
 }
 .link-registration {
-  font-family: "Roboto", sans-serif;
-  text-decoration: none;
-  color: green;
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
+    color: green;
 }
-.error {
-  color: red;
-  font-size: 12px;
+.error-messages {
+    color: red;
+    font-size: 14px;
+}
+
+.label-input {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 900;
 }

@@ -1,14 +1,25 @@
-function TextInput({ type, placeholder, name, errorMessages }) {
+function TextInput({
+    type,
+    placeholder,
+    value,
+    onChange,
+    errorMessages,
+    label = "",
+    name = "",
+}) {
     return (
         <>
+            <label className="label-input">{label}</label>
             <input
                 className="form-field"
                 type={type}
                 name={name}
+                value={value}
                 placeholder={placeholder}
-                required
+                // onChange={(e) => onChange(e.target.value)}
+                onChange={onChange}
             />
-            {errorMessages}
+            <span className="error-messages">{errorMessages}</span>
         </>
     );
 }

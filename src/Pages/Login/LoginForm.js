@@ -1,81 +1,59 @@
 import { useState } from "react";
 import { TextInput, BtnForm, Registration } from "../../components";
+import isEmpty from "validator/lib/isEmpty";
 
 function LoginForm() {
-    const [errorMessages, setErrorMessages] = useState({});
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [username, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const [validationMsg, setValidationMsg] = useState("");
 
-    const database = [
-        {
-            username: "user1",
-            password: "pass1",
-        },
-        {
-            username: "user2",
-            password: "pass2",
-        },
-    ];
-
-    const errors = {
-        uname: "invalid username",
-        pass: "invalid password",
+    const onChangeUser = (value) => {
+        setUserName(value);
     };
 
-    const handleSubmit = (event) => {
-        //Prevent page reload
-        event.preventDefault();
+    const onChangePassWord = (value) => {
+        setPassword(value);
+    };
 
-        var { uname, pass } = document.forms[0];
-
-        // Find user login info
-        const userData = database.find((user) => user.username === uname.value);
-
-        // Compare user info
-        if (userData) {
-            if (userData.password !== pass.value) {
-                // Invalid password
-                setErrorMessages({ name: "pass", message: errors.pass });
-            } else {
-                setIsSubmitted(true);
-            }
-        } else {
-            // Username not found
-            setErrorMessages({ name: "uname", message: errors.uname });
+    const validationAll = () => {
+        const msg = {};
+        if (isEmpty(username)) {
+            msg.username = "Please input your username"
         }
+
+        if (isEmpty(password)) {
+            msg.password = "Please input your password"
+        }
+
+        setValidationMsg(msg)
+
+        if (Object.keys(msg).length > 0) return true;
+        return false;
     };
 
-    const renderErrorMessage = (name) => {
-        name === errorMessages.name && (
-            <div className="error">{errorMessages.message}</div>
-        );
+    const onSubmitLogin = () => {
+        const isValid  = validationAll();
+        if(!isValid) alert('Login is success!')       
     };
-
-    const renderForm = (
-        <form className="login-form" onSubmit={handleSubmit}>
-            <TextInput
-                type="text"
-                name="uname"
-                placeholder="username"
-                errorMessages={renderErrorMessage("uname")}
-            />
-            <TextInput
-                type="password"
-                name="pass"
-                placeholder="password"
-                errorMessages={renderErrorMessage("pass")}
-            />
-            <BtnForm title="LOGIN" />
-            <Registration />
-        </form>
-    );
 
     return (
         <div className="form-container">
-            {isSubmitted ? (
-                <div>User is successfully logged in</div>
-            ) : (
-                renderForm
-            )}
+            <form className="login-form">
+                <TextInput
+                    type="text"
+                    placeholder="username"
+                    onChange={onChangeUser}
+                    errorMessages={validationMsg.username}
+                />
+                <TextInput
+                    type="password"
+                    placeholder="password"
+                    onChange={onChangePassWord}
+                    errorMessages={validationMsg.password}
+                />
+                <BtnForm title="LOGIN" onClick={onSubmitLogin} />
+                <Registration />
+            </form>
         </div>
     );
 }
