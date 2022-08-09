@@ -1,39 +1,26 @@
 import { useState } from "react";
 import { TextInput, BtnForm, Registration } from "../../components";
-import isEmpty from "validator/lib/isEmpty";
+import { validate } from "../../components/Validate";
 
 function LoginForm() {
-    const [username, setUserName] = useState("");
-    const [password, setPassword] = useState("");
-    const [validationMsg, setValidationMsg] = useState("");
-
-    const onChangeUser = (value) => {
-        setUserName(value);
+    const initialValues = {
+        username: "",
+        password: "",
     };
 
-    const onChangePassWord = (value) => {
-        setPassword(value);
+    const [formValues, setFormValues] = useState(initialValues);
+    const [formErrors, setFormErrors] = useState({});
+    const [isSubmit, setIsSubmit] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormValues({ ...formValues, [name]: value });
     };
 
-    const validationAll = () => {
-        const msg = {};
-        if (isEmpty(username)) {
-            msg.username = "Please input your username"
-        }
-
-        if (isEmpty(password)) {
-            msg.password = "Please input your password"
-        }
-
-        setValidationMsg(msg)
-
-        if (Object.keys(msg).length > 0) return true;
-        return false;
-    };
-
-    const onSubmitLogin = () => {
-        const isValid  = validationAll();
-        if(!isValid) alert('Login is success!')       
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setFormErrors(validate(formValues));
+        setIsSubmit(!isSubmit);
     };
 
     return (
@@ -41,17 +28,19 @@ function LoginForm() {
             <form className="login-form">
                 <TextInput
                     type="text"
-                    placeholder="username"
-                    onChange={onChangeUser}
-                    errorMessages={validationMsg.username}
+                    name="username"
+                    placeholder="USERNAME"
+                    onChange={handleChange}
+                    errorMessages={formErrors.username}
                 />
                 <TextInput
                     type="password"
-                    placeholder="password"
-                    onChange={onChangePassWord}
-                    errorMessages={validationMsg.password}
+                    name="password"
+                    placeholder="PASSWORD"
+                    onChange={handleChange}
+                    errorMessages={formErrors.password}
                 />
-                <BtnForm title="LOGIN" onClick={onSubmitLogin} />
+                <BtnForm title="LOGIN" onClick={handleSubmit} />
                 <Registration />
             </form>
         </div>
