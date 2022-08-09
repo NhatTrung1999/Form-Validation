@@ -9,16 +9,16 @@ function TextInput({
 }) {
     return (
         <>
-            <label className="label-input">{label}</label>
-            <input
-                className="form-field"
-                type={type}
-                name={name}
-                value={value}
-                placeholder={placeholder}
-                // onChange={(e) => onChange(e.target.value)}
-                onChange={onChange}
-            />
+            <div className="form-field">
+                <label>{label}</label>
+                <input
+                    type={type}
+                    name={name}
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={onChange}
+                />
+            </div>
             <span className="error-messages">{errorMessages}</span>
         </>
     );

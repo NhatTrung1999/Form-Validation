@@ -1,8 +1,10 @@
-function BtnForm({title = '', onClick}) {
+function BtnForm({ btnTitle = "", onClick }) {
     return (
-        <button className="form-field btn" type="button" onClick={onClick} >
-            {title}
-        </button>
+        <div className="form-field">
+            <button className='btn' type="submit" onClick={onClick}>
+                {btnTitle}
+            </button>
+        </div>
     );
 }
 

@@ -20,12 +20,20 @@ function LoginForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormErrors(validate(formValues));
-        setIsSubmit(!isSubmit);
+        if (!validate(formValues)) {
+            setIsSubmit(false);
+        } else {
+            setIsSubmit(true)
+        }
+        
     };
 
     return (
         <div className="form-container">
-            <form className="login-form">
+            <form className="form">
+                {isSubmit ? (
+                    <div className="success-message">Login is success!</div>
+                ) : null}
                 <TextInput
                     type="text"
                     name="username"
@@ -40,7 +48,7 @@ function LoginForm() {
                     onChange={handleChange}
                     errorMessages={formErrors.password}
                 />
-                <BtnForm title="LOGIN" onClick={handleSubmit} />
+                <BtnForm btnTitle="LOGIN" onClick={handleSubmit} />
                 <Registration />
             </form>
         </div>

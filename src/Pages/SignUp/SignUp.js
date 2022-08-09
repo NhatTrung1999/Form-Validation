@@ -8,7 +8,7 @@ function SignUp() {
         email: "",
         password: "",
         phone: "",
-        fullName: "",
+        // fullName: "",
         confirmPassword: "",
     };
 
@@ -24,13 +24,37 @@ function SignUp() {
     const handleSubmit = (e) => {
         e.preventDefault();
         setFormErrors(validate(formValues));
-        setIsSubmit(!isSubmit);
+        if (
+            formValues.username &&
+            formValues.password &&
+            formValues.phone &&
+            formValues.confirmPassword &&
+            formValues.email 
+            // &&
+            // formValues.password.length > 8 &&
+            // formValues.password.value === formValues.confirmPassword.value
+        ) {
+            setIsSubmit(true);
+            console.log(isSubmit)
+        }
     };
 
     return (
         <div className="form-container">
-            <form className="login-form">
+            <form className="form">
+                {isSubmit ? 
+                    <div className="success-message">Sign up is success!</div>
+                 : null}
                 <TextInput
+                    label="User Name"
+                    type="text"
+                    placeholder="UserName"
+                    name="username"
+                    onChange={handleChange}
+                    value={formValues.username}
+                    errorMessages={formErrors.username}
+                />
+                {/* <TextInput
                     label="Full Name"
                     type="text"
                     name="fullName"
@@ -38,7 +62,7 @@ function SignUp() {
                     value={formValues.fullName}
                     onChange={handleChange}
                     errorMessages={formErrors.fullName}
-                />
+                /> */}
                 <TextInput
                     label="Email"
                     type="text"
@@ -57,15 +81,7 @@ function SignUp() {
                     value={formValues.phone}
                     errorMessages={formErrors.phone}
                 />
-                <TextInput
-                    label="User Name"
-                    type="text"
-                    placeholder="UserName"
-                    name="username"
-                    onChange={handleChange}
-                    value={formValues.username}
-                    errorMessages={formErrors.username}
-                />
+
                 <TextInput
                     label="Password"
                     type="password"
@@ -84,8 +100,8 @@ function SignUp() {
                     value={formValues.confirmPassword}
                     errorMessages={formErrors.confirmPassword}
                 />
-                <BtnForm title="SIGN UP" onClick={handleSubmit} />
-                <BtnForm title="RETURN" />
+                <BtnForm btnTitle="SIGN UP" onClick={handleSubmit} />
+                {/* <BtnForm title="RETURN" /> */}
             </form>
         </div>
     );
