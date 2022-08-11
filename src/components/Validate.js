@@ -4,13 +4,13 @@ export const validate = (values) => {
         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const formatPassword =
         "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})";
-    const formatSpecialCharaters = /[^a-zA-Z0-9\-\/]/;
+    const formatSpecialCharaters = /^[a-zA-Z0-9]+$/;
     const formatPhone =
         /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
     if (!values.username) {
         errors.username = "Username cannot be blank.";
-    } else if (formatSpecialCharaters.test(values.username)) {
+    } else if (!formatSpecialCharaters.test(values.username)) {
         errors.username = "Username cannot be special characters.";
     }
     if (!values.phone) {
@@ -38,10 +38,11 @@ export const validate = (values) => {
         errors.password = "Password cannot be blank.";
     } else if (values.password.length < 8) {
         errors.password = "Password must has at least 8 characters.";
-    } else if (/\d/.test(values.password)) {
-        errors.password = "Password must contain a digit.";
-    } else if (/[!@#$%^&*]/.test(values.password)) {
-        errors.password = "Password must contain special character: !@#$%^&*";
-    }
+    } 
+    // else if (formatPhone.test(values.password)) {
+    //     errors.password = "Password must contain a digit.";
+    // } else if (/[!@#$%^&*]/.test(values.password)) {
+    //     errors.password = "Password must contain special character: !@#$%^&*";
+    // }
     return errors;
 };

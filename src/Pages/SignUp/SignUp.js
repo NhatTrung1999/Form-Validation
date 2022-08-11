@@ -6,15 +6,20 @@ function SignUp() {
     const initialValues = {
         username: "",
         email: "",
-        password: "",
         phone: "",
-        // fullName: "",
+        password: "",
         confirmPassword: "",
+        // fullName: "",
     };
 
     const [formValues, setFormValues] = useState(initialValues);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
+    const formatEmail =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const formatSpecialCharaters = /^[a-zA-Z0-9]+$/;
+    const formatPhone =
+        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -29,22 +34,25 @@ function SignUp() {
             formValues.password &&
             formValues.phone &&
             formValues.confirmPassword &&
-            formValues.email 
-            // &&
-            // formValues.password.length > 8 &&
-            // formValues.password.value === formValues.confirmPassword.value
+            formValues.email &&
+            formValues.password == formValues.confirmPassword &&
+            formValues.password.length >= 8 &&
+            formatEmail.test(formValues.email) &&
+            formatSpecialCharaters.test(formValues.username) &&
+            formatPhone.test(formValues.phone)
         ) {
             setIsSubmit(true);
-            console.log(isSubmit)
+        } else if (formValues.password.length < 8) {
+            setIsSubmit(false);
         }
     };
 
     return (
         <div className="form-container">
             <form className="form">
-                {isSubmit ? 
+                {isSubmit ? (
                     <div className="success-message">Sign up is success!</div>
-                 : null}
+                ) : null}
                 <TextInput
                     label="User Name"
                     type="text"
@@ -54,15 +62,6 @@ function SignUp() {
                     value={formValues.username}
                     errorMessages={formErrors.username}
                 />
-                {/* <TextInput
-                    label="Full Name"
-                    type="text"
-                    name="fullName"
-                    placeholder="Your Full Name"
-                    value={formValues.fullName}
-                    onChange={handleChange}
-                    errorMessages={formErrors.fullName}
-                /> */}
                 <TextInput
                     label="Email"
                     type="text"
@@ -101,7 +100,6 @@ function SignUp() {
                     errorMessages={formErrors.confirmPassword}
                 />
                 <BtnForm btnTitle="SIGN UP" onClick={handleSubmit} />
-                {/* <BtnForm title="RETURN" /> */}
             </form>
         </div>
     );
