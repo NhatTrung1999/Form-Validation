@@ -1,13 +1,9 @@
 function Header() {
     return (
-        <div>
-            <div>
-                <img className="menu" />
-            </div>
-            <div>
-                <img className="user" />
-            </div>
-        </div>
+        <>
+            <div className="menu"></div>
+            <div className="user"></div>
+        </>
     );
 }
 

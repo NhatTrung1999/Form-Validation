@@ -20,7 +20,9 @@ h1 {
 #header {
     background: #2c3639;
     height: 70px;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #container {
@@ -39,22 +41,25 @@ h1 {
     text-align: center;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .menu {
-    background-image: url('../../assets/images/menu.png');
+    background-image: url('../../assets/images/menu.svg');
     width: 50px;
     height: 50px;
-    margin-top: 20px;
     background-size: cover;
     background-repeat: no-repeat;
-    /* background-color: #2c3639; */
 }
 
 .user {
-    background-image: url('../../assets/images/user.png');
+    background-image: url('../../assets/images/user.svg');
     width: 50px;
     height: 50px;
-    margin-top: 20px;
     background-size: cover;
     background-repeat: no-repeat;
-    border-color: #2c3639;
+    line-height: 70px;
 }
+

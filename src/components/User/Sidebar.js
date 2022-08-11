@@ -1,13 +1,5 @@
 function Sidebar() {
-    return (
-        <div>
-            <img className="menu" />
-            <div>
-                <img className="user" />
-            </div>
-        </div>
-        
-    );
+    return <div>Sidebar</div>;
 }
 
 export default Sidebar;
