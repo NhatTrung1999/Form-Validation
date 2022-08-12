@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextInput, BtnForm, Registration } from "../../components";
-import { validate } from "../../components/Validate";
+import { validate } from "../../components/Form/Validate";
 
 function LoginForm() {
     const initialState = {

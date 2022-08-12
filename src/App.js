@@ -2,7 +2,11 @@
 // import { LoginForm } from "./Pages/Login";
 // import { SignUp } from "./Pages/SignUp";
 // import NotFound from "./Pages/NotFound";
-import {User} from './components/User'
+import './assets/css/user.css'
+import './assets/css/header.css'
+import './assets/css/sidebar.css'
+import './assets/css/content.css'
+import User from './Pages/UserPage'
 
 function App() {
     return (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { TextInput, BtnForm } from "../../components";
-import { validate } from "../../components/Validate";
+import { validate } from "../../components/Form/Validate";
 
 function SignUp() {
     const initialValues = {

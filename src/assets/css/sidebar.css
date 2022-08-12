@@ -1,0 +1,32 @@
+.sidebar-container {
+    list-style: none;
+    text-align: left;
+    padding-left: 0;
+    margin: 20px 20px 0 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #2C3639;
+}
+
+.list-user {
+    margin-bottom: 10px;
+    padding: 20px 0 20px 20px;
+    color: #DCD7C9;
+    cursor: pointer;
+}
+
+.list-product {
+    padding: 20px 0 20px 20px;
+    color: #DCD7C9;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #DCD7C9;
+    color: #2C3639;
+    border-radius: 4px;
+}
+
+.active:hover {
+    opacity: 0.9;
+}

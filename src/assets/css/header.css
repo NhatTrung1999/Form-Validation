@@ -1,0 +1,27 @@
+.menu {
+    background-image: url("../images/menu.svg");
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    cursor: not-allowed;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.avatar {
+    background-image: url("../images/user.svg");
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0 10px;
+}

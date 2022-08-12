@@ -1,0 +1,110 @@
+.content-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content-add {
+    display: flex;
+    align-items: center;
+    background-color: #dcd7c9;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.content-add:hover {
+    opacity: 0.9;
+}
+
+.add-user {
+    background-image: url("../images/add.svg");
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    margin: 13px 10px 13px 20px;
+}
+
+.list {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.add {
+    font-size: 18px;
+    margin-right: 15px;
+    font-weight: 600;
+}
+
+table,
+td,
+th {
+    border: 1px solid #C1C1C1;
+    text-align: left;
+    font-size: 18px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    padding: 15px;
+}
+
+th {
+    background-color: #dcd7c9;
+    color: #2c3639;
+}
+
+.check-container {
+    display: flex;
+    cursor: pointer;
+}
+
+.check-empty {
+    background-image: url('../images/check-empty.svg');
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+}
+
+.check-fill {
+    background-image: url('../images/check-fill.svg');
+    width: 25px;
+    height: 25px;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+}
+
+.edit {
+    background-image: url('../images/edit.svg');
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    margin-right: 18px;
+    cursor: pointer;
+}
+
+.edit:hover {
+    opacity: 0.5;
+}
+
+.delete {
+    background-image: url('../images/delete.svg');
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.delete:hover {
+    opacity: 0.5;
+}
