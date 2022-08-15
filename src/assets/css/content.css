@@ -108,3 +108,20 @@ th {
 .delete:hover {
     opacity: 0.5;
 }
+
+input.user-item {
+	font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+	display: none;
+    width: 100%;
+    padding-left: 15px;
+    border: 1px solid #44d62c;
+    box-sizing: border-box;
+    background-color: #fff !important;
+    padding: 3px 10px 5px 5px;
+    line-height: 20px;
+}
+
+input.user-item.show {
+    display: block;
+}

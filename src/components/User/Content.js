@@ -1,22 +1,77 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser } from "../../features/user/userSlice";
+import { useState, useRef, useEffect } from "react";
+import { nanoid } from '@reduxjs/toolkit'
+import EditUser from "./EditUser";
+import ShowOnlyRow from "./ShowOnlyRow";
 
 function Content() {
     const { userId, users } = useSelector((state) => {
         return {
             userId: state.user.userId,
-            users: state.user.users,
+            users: state.user.listUser,
         };
     });
 
-    console.log(userId);
-    console.log(users);
+    const dispatch = useDispatch();
+
+    const [editFormData, setEditFormData] = useState({
+        name: "",
+        email: "",
+    });
+
+    const [editId, setEditId] = useState(null);
+
+    const handleEditFormChange = (event) => {
+        event.preventDefault();
+
+        const fieldName = event.target.getAttribute("name");
+        const fieldValue = event.target.value;
+
+        const newFormData = { ...editFormData };
+        newFormData[fieldName] = fieldValue;
+
+        setEditFormData(newFormData);
+    };
+
+    const handleEditClick = (event, user) => {
+        event.preventDefault();
+
+        setEditId(user.id);
+        const formValues = {
+            name: user.name,
+            email: user.email,
+        };
+        setEditFormData(formValues);
+    };
+
+    const nameRef = useRef();
+    const emailRef = useRef();
+
+    useEffect(() => {
+        console.log(nameRef);
+        console.log(emailRef);
+    });
+
+    console.log(users)
+
+    const handleAddUser = () => {
+        dispatch(
+            addUser({
+                id: nanoid(),
+                name: `some text ${users.length}`,
+                email: "mail@gmail.com",
+                date: "15/8/2022",
+                status: "chưa kích hoạt",
+            })
+        );
+    };
 
     return (
         <>
             <div className="content-header">
                 <div className="list">Danh sách</div>
-                <div className="content-add">
+                <div className="content-add" onClick={handleAddUser}>
                     <div className="add-user"></div>
                     <span className="add">Thêm</span>
                 </div>
@@ -34,27 +89,25 @@ function Content() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            {users.map((user) => (
-                                <>
-                                    <td>{user.name}</td>
-                                    <td>{user.email}</td>
-                                    <td>{user.date}</td>
-                                    <td>
-                                        <div className="check-container">
-                                            <div className="check-empty"></div>
-                                            {user.status}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="action">
-                                            <div className="edit"></div>
-                                            <div className="delete"></div>
-                                        </div>
-                                    </td>
-                                </>
-                            ))}
-                        </tr>
+                        {users.map((user) => (
+                            <tr key={user.id}>
+                                {editId === user.id ? (
+                                    <EditUser
+                                        user={user}
+                                        handleEditFormChange={
+                                            handleEditFormChange
+                                        }
+                                    />
+                                ) : (
+                                    <ShowOnlyRow
+                                        user={user}
+                                        handleEditClick={handleEditClick}
+                                        
+                                    />
+                                )}
+                            </tr>
+                        ))}
+                        {/* <EditUser /> */}
                     </tbody>
                 </table>
             </div>

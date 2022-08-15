@@ -1,0 +1,62 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(88, 87, 82, 0.43);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-container {
+    background-color: #fff;
+    width: 384px;
+    min-height: 181px;
+    border-radius: 10px;
+    animation: fadeIn ease-in-out .4s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-title {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.modal-btn {
+    text-align: center;
+}
+
+.modal-close {
+    margin-right: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 20px;
+    background: #fff;
+    border: 1px solid #DCD7C9;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-del {
+    padding: 5px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #DCD7C9;
+    border: 1px solid #DCD7C9;
+    border-radius: 4px;
+    cursor: pointer;
+}
