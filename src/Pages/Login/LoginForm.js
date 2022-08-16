@@ -32,7 +32,8 @@ function LoginForm() {
             formatSpecialCharaters.test(formValues.username)
         ) {
             setIsSubmit(true);
-            navigate("/admin", {replace: true});
+            navigate("/user", {replace: true});
+            localStorage.setItem('login', JSON.stringify(formValues))
         } else if (formValues.password.length < 8) {
             setIsSubmit(false);
         }
