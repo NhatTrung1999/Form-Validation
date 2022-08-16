@@ -5,17 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
 
 
-html {
-    font-family: "Roboto", sans-serif;
-    height: 100%;
-}
 
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    height: 100%;
-}
 
 #header {
     background: #2c3639;

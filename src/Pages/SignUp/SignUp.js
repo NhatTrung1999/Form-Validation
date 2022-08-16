@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { TextInput, BtnForm } from "../../components";
+import { TextInput, BtnForm } from "../../components/Form";
 import { validate } from "../../components/Form/Validate";
 
 function SignUp() {
@@ -48,59 +48,63 @@ function SignUp() {
     };
 
     return (
-        <div className="form-container">
-            <form className="form">
-                {isSubmit ? (
-                    <div className="success-message">Sign up is success!</div>
-                ) : null}
-                <TextInput
-                    label="User Name"
-                    type="text"
-                    placeholder="UserName"
-                    name="username"
-                    onChange={handleChange}
-                    value={formValues.username}
-                    errorMessages={formErrors.username}
-                />
-                <TextInput
-                    label="Email"
-                    type="text"
-                    placeholder="Your Email"
-                    name="email"
-                    onChange={handleChange}
-                    value={formValues.email}
-                    errorMessages={formErrors.email}
-                />
-                <TextInput
-                    label="Phone"
-                    type="text"
-                    placeholder="Your Phone"
-                    name="phone"
-                    onChange={handleChange}
-                    value={formValues.phone}
-                    errorMessages={formErrors.phone}
-                />
+        <div className="body-container">
+            <div className="form-container">
+                <form className="form">
+                    {isSubmit ? (
+                        <div className="success-message">
+                            Sign up is success!
+                        </div>
+                    ) : null}
+                    <TextInput
+                        label="User Name"
+                        type="text"
+                        placeholder="UserName"
+                        name="username"
+                        onChange={handleChange}
+                        value={formValues.username}
+                        errorMessages={formErrors.username}
+                    />
+                    <TextInput
+                        label="Email"
+                        type="text"
+                        placeholder="Your Email"
+                        name="email"
+                        onChange={handleChange}
+                        value={formValues.email}
+                        errorMessages={formErrors.email}
+                    />
+                    <TextInput
+                        label="Phone"
+                        type="text"
+                        placeholder="Your Phone"
+                        name="phone"
+                        onChange={handleChange}
+                        value={formValues.phone}
+                        errorMessages={formErrors.phone}
+                    />
 
-                <TextInput
-                    label="Password"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    onChange={handleChange}
-                    value={formValues.password}
-                    errorMessages={formErrors.password}
-                />
-                <TextInput
-                    label="Confirm Password"
-                    type="password"
-                    placeholder="Confirm Password"
-                    name="confirmPassword"
-                    onChange={handleChange}
-                    value={formValues.confirmPassword}
-                    errorMessages={formErrors.confirmPassword}
-                />
-                <BtnForm btnTitle="SIGN UP" onClick={handleSubmit} />
-            </form>
+                    <TextInput
+                        label="Password"
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        onChange={handleChange}
+                        value={formValues.password}
+                        errorMessages={formErrors.password}
+                    />
+                    <TextInput
+                        label="Confirm Password"
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        onChange={handleChange}
+                        value={formValues.confirmPassword}
+                        errorMessages={formErrors.confirmPassword}
+                    />
+                    <BtnForm btnTitle="SIGN UP" onClick={handleSubmit} />
+                </form>
+            </div>
         </div>
     );
 }

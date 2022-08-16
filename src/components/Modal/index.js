@@ -1,13 +1,13 @@
 import "./modal.css";
 
-function Modal() {
+function Modal({open, handleDelete, handleClose}) {
     return (
-        <div className='modal overlay'>
+        <div className={`modal ${open ? 'open' : ''}`}>
             <div className='modal-container'>
                 <h2 className='modal-title'>Bạn muốn xóa tài khoản "some text"?</h2>
                 <div className='modal-btn'>
-                    <input type='button' className='modal-close' value="Đóng" />
-                    <input type='button' className="modal-del" value="Xóa" />
+                    <input type='button' className='modal-close' value="Đóng" onClick={handleClose}/>
+                    <input type='button' className="modal-del" value="Xóa" onClick={handleDelete} />
                 </div>
             </div>
         </div>

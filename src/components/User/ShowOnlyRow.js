@@ -1,4 +1,9 @@
-function ShowOnlyRow({ user, handleEditClick }) {
+import { useState } from "react";
+import Modal from "../Modal";
+
+function ShowOnlyRow({ user, handleEditClick, handleDeleteClick }) {
+    const [open, setOpen] = useState(false);
+
     return (
         <>
             <td>{user.name}</td>
@@ -16,7 +21,18 @@ function ShowOnlyRow({ user, handleEditClick }) {
                         className="edit"
                         onClick={(event) => handleEditClick(event, user)}
                     ></div>
-                    <div className="delete"></div>
+                    <div
+                        className="delete"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setOpen(true);
+                        }}
+                    ></div>
+                    <Modal
+                        open={open}
+                        handleDelete={() => handleDeleteClick(user.id)}
+                        handleClose={() => setOpen(false)}
+                    />
                 </div>
             </td>
         </>

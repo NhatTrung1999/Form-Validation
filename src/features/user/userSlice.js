@@ -1,14 +1,9 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-// const getDefaultUser = (id) => {
-//     return {
-//         id: id,
-//         name: "some text",
-//         email: "mail@gmail.com",
-//         date: "12/8/2022",
-//         status: 'chưa kích hoạt',
-//     };
-// };
+let today = new Date();
+
+let date =
+    today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
 
 export const userSlice = createSlice({
     name: "user",
@@ -18,26 +13,19 @@ export const userSlice = createSlice({
                 id: 0,
                 name: "some text",
                 email: "mail@gmail.com",
-                date: "12/8/2022",
+                date: date,
                 status: "chưa kích hoạt",
             },
             {
-                id: 2,
+                id: 1,
                 name: "some text 1",
                 email: "somtext1@gmail.com",
-                date: "12/8/2022",
+                date: date,
                 status: "chưa kích hoạt",
             },
         ],
-        userId: 0,
     },
-    // () => {
-    //     const id = nanoid();
-    //     return {
-    //         userId: id,
-    //         users: [getDefaultUser(id)],
-    //     };
-    // }
+
     reducers: {
         addUser: (state, action) => {
             return {
@@ -45,9 +33,36 @@ export const userSlice = createSlice({
                 listUser: [...state.listUser, action.payload],
             };
         },
+        editUser: (state, action) => {
+            const id = action.payload.id;
+            const editUser = {
+                id: id,
+                name: action.payload.name,
+                email: action.payload.email,
+            };
+
+            const newUsers = [...state.listUser];
+            const index = newUsers.findIndex((user) => user.id === id);
+            newUsers[index] = editUser;
+            return {
+                ...state,
+                listUser: newUsers,
+            };
+        },
+        deleteUser: (state, action) => {
+            const id = action.payload;
+            const newUsers = [...state.listUser];
+            const index = newUsers.findIndex((user) => user.id === id);
+            console.log(id);
+            newUsers.splice(index, 1);
+            return {
+                ...state,
+                listUser: newUsers,
+            };
+        },
     },
 });
 
-export const { addUser } = userSlice.actions;
+export const { addUser, editUser, deleteUser } = userSlice.actions;
 
 export default userSlice.reducer;

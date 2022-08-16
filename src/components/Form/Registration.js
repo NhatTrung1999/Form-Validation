@@ -3,7 +3,7 @@ function Registration() {
         <p className="text-center">
             Not registered? {" "}
             <a href="./signup">
-                <span>Create an account!</span>
+                <span className="create-account">Create an account!</span>
             </a>
         </p>
     );

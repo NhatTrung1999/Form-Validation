@@ -1,8 +1,9 @@
-function EditUser({ user, handleEditFormChange, handleCancelClick }) {
+function EditUser({ user, handleEditFormChange, handleCancelClick, handleEditSubmit }) {
     return (
         <>
             <td>
                 <input
+                    className="user-item"
                     type="text"
                     required="required"
                     placeholder="Enter a name..."
@@ -13,6 +14,7 @@ function EditUser({ user, handleEditFormChange, handleCancelClick }) {
             </td>
             <td>
                 <input
+                    className="user-item"
                     type="text"
                     required="required"
                     placeholder="Enter an address..."
@@ -30,10 +32,11 @@ function EditUser({ user, handleEditFormChange, handleCancelClick }) {
             </td>
             <td>
                 <div className="action">
-                    <div className="edit">Save</div>
-                    <div className="delete" onClick={handleCancelClick}>
-                        Cancel
-                    </div>
+                    <button type="submit" className="save" onClick={handleEditSubmit}></button>
+                    <button
+                        className="cancel"
+                        onClick={handleCancelClick}
+                    ></button>
                 </div>
             </td>
         </>

@@ -15,7 +15,19 @@
     box-sizing: border-box;
 }
 
+html {
+    font-family: "Roboto", sans-serif;
+    height: 100%;
+}
+
 body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.body-container {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     background-color: #76b852;
@@ -23,8 +35,12 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
     margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .form-container {
@@ -102,7 +118,14 @@ body {
     outline: none;
 }
 
-span {
+.create-account {
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    color: red;
+    margin-bottom: 15px;
+}
+
+.error-messages {
     font-family: "Roboto", sans-serif;
     font-size: 16px;
     color: red;

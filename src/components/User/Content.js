@@ -1,17 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { addUser } from "../../features/user/userSlice";
-import { useState, useRef, useEffect } from "react";
-import { nanoid } from '@reduxjs/toolkit'
+import { addUser, editUser, deleteUser } from "../../features/user/userSlice";
+import { useState } from "react";
+import { nanoid } from "@reduxjs/toolkit";
 import EditUser from "./EditUser";
 import ShowOnlyRow from "./ShowOnlyRow";
 
 function Content() {
-    const { userId, users } = useSelector((state) => {
-        return {
-            userId: state.user.userId,
-            users: state.user.listUser,
-        };
-    });
+    const users = useSelector((state) => state.user.listUser);
 
     const dispatch = useDispatch();
 
@@ -20,7 +15,28 @@ function Content() {
         email: "",
     });
 
-    const [editId, setEditId] = useState(null);
+    const [editContactId, setEditContactId] = useState(null);
+
+    const handleAddUser = (e) => {
+        e.preventDefault();
+        let today = new Date();
+
+        let date =
+            today.getDate() +
+            "/" +
+            (today.getMonth() + 1) +
+            "/" +
+            today.getFullYear();
+        dispatch(
+            addUser({
+                id: nanoid(),
+                name: `some text`,
+                email: "mail@gmail.com",
+                date: date,
+                status: "chưa kích hoạt",
+            })
+        );
+    };
 
     const handleEditFormChange = (event) => {
         event.preventDefault();
@@ -34,10 +50,24 @@ function Content() {
         setEditFormData(newFormData);
     };
 
+    const handleEditSubmit = (e) => {
+        e.preventDefault();
+
+        dispatch(
+            editUser({
+                id: editContactId,
+                name: editFormData.name,
+                email: editFormData.email,
+            })
+        );
+
+        setEditContactId(null);
+    };
+
     const handleEditClick = (event, user) => {
         event.preventDefault();
 
-        setEditId(user.id);
+        setEditContactId(user.id);
         const formValues = {
             name: user.name,
             email: user.email,
@@ -45,26 +75,12 @@ function Content() {
         setEditFormData(formValues);
     };
 
-    const nameRef = useRef();
-    const emailRef = useRef();
+    const handleCancelClick = () => {
+        setEditContactId(null);
+    };
 
-    useEffect(() => {
-        console.log(nameRef);
-        console.log(emailRef);
-    });
-
-    console.log(users)
-
-    const handleAddUser = () => {
-        dispatch(
-            addUser({
-                id: nanoid(),
-                name: `some text ${users.length}`,
-                email: "mail@gmail.com",
-                date: "15/8/2022",
-                status: "chưa kích hoạt",
-            })
-        );
+    const handleDeleteClick = (userId) => {
+        dispatch(deleteUser(userId));
     };
 
     return (
@@ -91,23 +107,24 @@ function Content() {
                     <tbody>
                         {users.map((user) => (
                             <tr key={user.id}>
-                                {editId === user.id ? (
+                                {editContactId === user.id ? (
                                     <EditUser
-                                        user={user}
+                                        user={editFormData}
                                         handleEditFormChange={
                                             handleEditFormChange
                                         }
+                                        handleCancelClick={handleCancelClick}
+                                        handleEditSubmit={handleEditSubmit}
                                     />
                                 ) : (
                                     <ShowOnlyRow
                                         user={user}
                                         handleEditClick={handleEditClick}
-                                        
+                                        handleDeleteClick={handleDeleteClick}
                                     />
                                 )}
                             </tr>
                         ))}
-                        {/* <EditUser /> */}
                     </tbody>
                 </table>
             </div>

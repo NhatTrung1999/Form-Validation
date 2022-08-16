@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { TextInput, BtnForm, Registration } from "../../components";
+import { TextInput, BtnForm, Registration } from "../../components/Form";
 import { validate } from "../../components/Form/Validate";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
     const initialState = {
         username: "",
-        password: "", 
+        password: "",
     };
+
+    const navigate = useNavigate();
 
     const [formValues, setFormValues] = useState(initialState);
     const [formErrors, setFormErrors] = useState({});
@@ -15,59 +18,61 @@ function LoginForm() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormValues({ ...formValues, [name]: value }); 
+        setFormValues({ ...formValues, [name]: value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const errors = validate(formValues);
-        // setFormErrors(validate(formValues));
-        // if (
-        //     formValues.username &&
-        //     formValues.password &&
-        //     formValues.password.length >= 8 &&
-        //     formatSpecialCharaters.test(formValues.username)
-        // ) {
-        //     setIsSubmit(true);
-        // } else if (formValues.password.length < 8) {
-        //     setIsSubmit(false);
+        setFormErrors(validate(formValues));
+        if (
+            formValues.username &&
+            formValues.password &&
+            formValues.password.length >= 8 &&
+            formatSpecialCharaters.test(formValues.username)
+        ) {
+            setIsSubmit(true);
+            navigate("/admin", {replace: true});
+        } else if (formValues.password.length < 8) {
+            setIsSubmit(false);
+        }
+        // if (Object.keys(errors).length) {
+        //     setFormErrors(errors);
         // }
-        if (Object.keys(errors).length) {
-            setFormErrors(errors);
-        }
-        else {
-            setIsSubmit(true)
-        }
+        // else {
+        //     setIsSubmit(true)
+        // }
 
-        console.log(Object.keys(errors))
+        // console.log(Object.keys(errors))
     };
 
     return (
-        <div className="form-container">
-            <form className="form">
-                {isSubmit ? (
-                    <div className="success-message">Login is success!</div>
-                ) : null}
-                <TextInput
-                    type="text"
-                    name="username"
-                    placeholder="USERNAME"
-                    value={formValues.username}
-                    onChange={handleChange}
-                    errorMessages={formErrors.username}
-                />
-                <TextInput
-                    type="password"
-                    name="password"
-                    placeholder="PASSWORD"
-                    value={formValues.password}
-                    onChange={handleChange}
-                    errorMessages={formErrors.password}
-                />
-                <BtnForm btnTitle="LOGIN" onClick={handleSubmit} />
-                <Registration />
-                 
-            </form>
+        <div className="body-container">
+            <div className="form-container">
+                <form className="form">
+                    {isSubmit ? (
+                        <div className="success-message">Login is success!</div>
+                    ) : null}
+                    <TextInput
+                        type="text"
+                        name="username"
+                        placeholder="USERNAME"
+                        value={formValues.username}
+                        onChange={handleChange}
+                        errorMessages={formErrors.username}
+                    />
+                    <TextInput
+                        type="password"
+                        name="password"
+                        placeholder="PASSWORD"
+                        value={formValues.password}
+                        onChange={handleChange}
+                        errorMessages={formErrors.password}
+                    />
+                    <BtnForm btnTitle="LOGIN" onClick={handleSubmit} />
+                    <Registration />
+                </form>
+            </div>
         </div>
     );
 }
