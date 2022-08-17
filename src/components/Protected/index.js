@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
 
-function HomePage() {
+function ProtectedPages() {
     const userOld = () => {
         const user = JSON.parse(localStorage.getItem("login"));
         if (user) {
@@ -12,4 +12,4 @@ function HomePage() {
     return userOld() ? <Outlet /> : <Navigate to="/signin" />;
 }
 
-export default HomePage;
+export default ProtectedPages;

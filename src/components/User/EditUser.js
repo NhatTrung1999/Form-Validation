@@ -1,4 +1,9 @@
-function EditUser({ user, handleEditFormChange, handleCancelClick, handleEditSubmit }) {
+function EditUser({
+    user,
+    handleEditFormChange,
+    handleCancelClick,
+    handleEditSubmit,
+}) {
     return (
         <>
             <td>
@@ -6,9 +11,9 @@ function EditUser({ user, handleEditFormChange, handleCancelClick, handleEditSub
                     className="user-item"
                     type="text"
                     required="required"
-                    placeholder="Enter a name..."
-                    name="name"
-                    value={user.name}
+                    placeholder="Enter a username..."
+                    name="username"
+                    value={user.username}
                     onChange={handleEditFormChange}
                 ></input>
             </td>
@@ -17,7 +22,7 @@ function EditUser({ user, handleEditFormChange, handleCancelClick, handleEditSub
                     className="user-item"
                     type="text"
                     required="required"
-                    placeholder="Enter an address..."
+                    placeholder="Enter an email..."
                     name="email"
                     value={user.email}
                     onChange={handleEditFormChange}
@@ -26,13 +31,21 @@ function EditUser({ user, handleEditFormChange, handleCancelClick, handleEditSub
             <td>{user.date}</td>
             <td>
                 <div className="check-container">
-                    <div className="check-empty"></div>
-                    {user.status}
+                    <div
+                        className={`${
+                            user.status === true ? "check-fill" : "check-empty"
+                        }`}
+                    ></div>
+                    {user.status === true ? "đã kích hoạt" : "chưa kích hoạt"}
                 </div>
             </td>
             <td>
                 <div className="action">
-                    <button type="submit" className="save" onClick={handleEditSubmit}></button>
+                    <button
+                        type="submit"
+                        className="save"
+                        onClick={handleEditSubmit}
+                    ></button>
                     <button
                         className="cancel"
                         onClick={handleCancelClick}

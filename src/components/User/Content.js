@@ -10,30 +10,33 @@ function Content() {
 
     const dispatch = useDispatch();
 
+    let today = new Date();
+
+    let date =
+        today.getDate() +
+        "/" +
+        (today.getMonth() + 1) +
+        "/" +
+        today.getFullYear();
+
     const [editFormData, setEditFormData] = useState({
-        name: "",
+        username: "",
         email: "",
+        date: date,
+        status: false
     });
 
     const [editContactId, setEditContactId] = useState(null);
 
     const handleAddUser = (e) => {
         e.preventDefault();
-        let today = new Date();
-
-        let date =
-            today.getDate() +
-            "/" +
-            (today.getMonth() + 1) +
-            "/" +
-            today.getFullYear();
         dispatch(
             addUser({
                 id: nanoid(),
-                name: `some text`,
+                username: `some text`,
                 email: "mail@gmail.com",
                 date: date,
-                status: "chưa kích hoạt",
+                status: false,
             })
         );
     };
@@ -56,8 +59,10 @@ function Content() {
         dispatch(
             editUser({
                 id: editContactId,
-                name: editFormData.name,
+                username: editFormData.username,
                 email: editFormData.email,
+                date: editFormData.date,
+                status: editFormData.status,
             })
         );
 
@@ -69,8 +74,10 @@ function Content() {
 
         setEditContactId(user.id);
         const formValues = {
-            name: user.name,
+            username: user.username,
             email: user.email,
+            date: user.date,
+            status: user.status,
         };
         setEditFormData(formValues);
     };

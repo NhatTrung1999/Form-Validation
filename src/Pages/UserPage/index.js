@@ -1,6 +1,13 @@
-import { Header, Sidebar, Content} from '../../components/User'
+import { Header, Sidebar } from "../../components/User";
+import { useLocation, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 function User() {
+    const location = useLocation();
+    if (location.pathname === "/") {
+        return <Navigate to="/signin" />;
+    }
+
     return (
         <>
             <div id="header">
@@ -11,7 +18,7 @@ function User() {
                     <Sidebar />
                 </div>
                 <div id="content">
-                    <Content />
+                    <Outlet />
                 </div>
             </div>
         </>

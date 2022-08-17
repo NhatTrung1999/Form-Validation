@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TextInput, BtnForm, Registration } from "../../components/Form";
-import { validate } from "../../components/Form/Validate";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import swal from "sweetalert";
 
 function LoginForm() {
     const initialState = {
@@ -9,58 +10,78 @@ function LoginForm() {
         password: "",
     };
 
+    const users = useSelector((state) => state.user.listUser);
+    localStorage.setItem("listuser", JSON.stringify(users));
+
     const navigate = useNavigate();
 
     const [formValues, setFormValues] = useState(initialState);
     const [formErrors, setFormErrors] = useState({});
-    const [isSubmit, setIsSubmit] = useState(false);
-    const formatSpecialCharaters = /^[a-zA-Z0-9]+$/;
 
+    const oldLogin = {
+        username: formValues.username,
+        password: formValues.password,
+    };
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues({ ...formValues, [name]: value });
     };
 
+    const userCheck = (user) => {
+        return user.username === formValues.username;
+    };
+
+    const passCheck = (user) => {
+        return user.password === formValues.password;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const errors = validate(formValues);
-        setFormErrors(validate(formValues));
-        if (
-            formValues.username &&
-            formValues.password &&
-            formValues.password.length >= 8 &&
-            formatSpecialCharaters.test(formValues.username)
-        ) {
-            setIsSubmit(true);
-            navigate("/user", {replace: true});
-            localStorage.setItem('login', JSON.stringify(formValues))
-        } else if (formValues.password.length < 8) {
-            setIsSubmit(false);
-        }
-        // if (Object.keys(errors).length) {
-        //     setFormErrors(errors);
-        // }
-        // else {
-        //     setIsSubmit(true)
-        // }
+        const errors = {};
 
-        // console.log(Object.keys(errors))
+        if (
+            (formValues.username === "" && formValues.password === "") ||
+            formValues.username === "" ||
+            formValues.password === ""
+        ) {
+            errors.username = "username cannot be blank.";
+            errors.password = "password cannot be blank.";
+            setFormErrors(errors);
+        } else if (users.find(userCheck) && users.find(passCheck)) {
+            if(users.find(userCheck).status === true) {
+                navigate("/user", { replace: true });
+            localStorage.setItem("login", JSON.stringify(oldLogin));
+            } else {
+                swal({
+                    title: "No Active",
+                    text: "username is not active!",
+                    icon: "warning",
+                    button: "Close",
+                });
+            }
+        } else {
+            swal({
+                title: "Error",
+                text: "username or password incorrect!",
+                icon: "error",
+                button: "Close",
+            });
+        }
     };
 
     return (
         <div className="body-container">
             <div className="form-container">
                 <form className="form">
-                    {isSubmit ? (
-                        <div className="success-message">Login is success!</div>
-                    ) : null}
                     <TextInput
                         type="text"
                         name="username"
                         placeholder="USERNAME"
                         value={formValues.username}
                         onChange={handleChange}
-                        errorMessages={formErrors.username}
+                        errorMessages={
+                            !formValues.username ? formErrors.username : ""
+                        }
                     />
                     <TextInput
                         type="password"
@@ -68,7 +89,9 @@ function LoginForm() {
                         placeholder="PASSWORD"
                         value={formValues.password}
                         onChange={handleChange}
-                        errorMessages={formErrors.password}
+                        errorMessages={
+                            !formValues.password ? formErrors.password : ""
+                        }
                     />
                     <BtnForm btnTitle="LOGIN" onClick={handleSubmit} />
                     <Registration />

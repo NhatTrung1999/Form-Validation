@@ -38,6 +38,7 @@
     text-align: center;
     margin-top: 40px;
     margin-bottom: 40px;
+    font-weight: 700;
 }
 
 .modal-btn {
@@ -55,11 +56,11 @@
     cursor: pointer;
 }
 
-.modal-del {
+input.modal-del {
     padding: 5px 20px;
     font-size: 14px;
     font-weight: 600;
-    background: #DCD7C9;
+    background-color: #DCD7C9;
     border: 1px solid #DCD7C9;
     border-radius: 4px;
     cursor: pointer;
