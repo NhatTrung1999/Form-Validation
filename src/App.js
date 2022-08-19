@@ -10,6 +10,7 @@ import "./assets/css/sidebar.css";
 import "./assets/css/content.css";
 // import User from "./Pages/UserPage";
 import ProductPage from "./Pages/ProductPage";
+// import AddAlert from './components/Modal/AddAlert'
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
         //     <Route path="*" element={<NotFound />} />
         // </Routes>
         <ProductPage />
+        // <AddAlert />
     );
 }
 

@@ -1,0 +1,86 @@
+.modal-add {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(88, 87, 82, 0.43);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-add.open {
+    display: flex;
+}
+
+.add-container {
+    width: 384px;
+    min-height: 181px;
+    background-color: white;
+    border-radius: 5px;
+    animation: fadeIn ease-in-out .4s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.wrapper {
+    padding: 20px;
+}
+
+.add-product {
+    font-size: 30px;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 500;
+}
+
+.item-product {
+    padding-bottom: 10px;
+}
+
+.item-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.input-item {
+    width: 100%;
+    font-size: 18px;
+    padding: 8px 15px;
+    height: 40px;
+    border-radius: 5px;
+    outline-color: #DCD7C9;
+    border: 1px solid #DCD7C9;
+}
+
+.btn-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.add-btn {
+    background-color: #DCD7C9;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.cancel-btn {
+    background-color: #DCD7C9;
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 500;
+}
