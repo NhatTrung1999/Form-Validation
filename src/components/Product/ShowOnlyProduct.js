@@ -1,9 +1,6 @@
-import { useState } from "react";
-import AddAlert from "../Modal/AddAlert";
-
-function ShowOnlyProduct({ product, key }) {
+function ShowOnlyProduct({ product }) {
     return (
-        <tr key={key}>
+        <>
             <td>{product.name}</td>
             <td>{product.quantity}</td>
             <td>{product.unit}</td>
@@ -16,7 +13,7 @@ function ShowOnlyProduct({ product, key }) {
                     <button className="deleteProduct"></button>
                 </div>
             </td>
-        </tr>
+        </>
     );
 }
 

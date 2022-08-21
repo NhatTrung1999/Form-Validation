@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
-import { addProduct } from "../../features/product/productSlice";
+import { addProduct, editProduct } from "../../features/product/productSlice";
 import AddAlert from "../Modal/AddAlert";
 import ShowOnlyProduct from "./ShowOnlyProduct";
 
@@ -41,6 +41,63 @@ function Content() {
         dispatch(addProduct(newProduct));
     };
 
+    const [showEdit, setShowEdit] = useState(false);
+
+    const [editData, setEditData] = useState({
+        name: "",
+        quantity: "",
+        unit: "",
+        price: "",
+        status: "",
+        date: "",
+    });
+
+    const [editProductId, setEditProductId] = useState(null);
+
+    const handleEditDataChange = (event) => {
+        event.preventDefault();
+
+        const fieldName = event.target.getAttribute("name");
+        const fieldValue = event.target.value;
+
+        const newData = { ...editData };
+        newData[fieldName] = fieldValue;
+
+        setEditData(newData);
+    };
+
+    const handleEditSubmit = (event) => {
+        event.preventDefault();
+
+        const editedProduct = {
+            id: editProductId,
+            name: editData.name,
+            quantity: editData.quantity,
+            unit: editData.unit,
+            price: editData.price,
+            status: editData.status,
+            date: editData.date,
+        };
+
+        dispatch(editProduct(editedProduct));
+        setEditProductId(null);
+    };
+
+    const handleEditClick = (event, product) => {
+        event.preventDefault();
+
+        setEditProductId(product.id);
+        const formValues = {
+            name: product.name,
+            quantity: product.quantity,
+            unit: product.unit,
+            price: product.price,
+            status: product.status,
+            date: product.date,
+        };
+        setEditData(formValues);
+    };
+
     return (
         <>
             <div className="content-header">
@@ -77,7 +134,13 @@ function Content() {
                     </thead>
                     <tbody>
                         {products.map((product) => (
-                            <ShowOnlyProduct key={product.id} product={product} />
+                            <tr key={product.id}>
+                                {editProductId === product.id ? (
+                                    <AddAlert open={showEdit} />
+                                ) : (
+                                    <ShowOnlyProduct product={product} />
+                                )}
+                            </tr>
                         ))}
                     </tbody>
                 </table>
