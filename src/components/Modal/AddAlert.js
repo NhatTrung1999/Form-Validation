@@ -1,7 +1,39 @@
 import AddItem from "./AddItem";
 import "./addAlert.css";
+import productSlice from "../../features/product/productSlice";
+import {useState} from "react";
 
-function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action }) {
+function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action, product }) {
+
+    const [showErrors, setShowErrors] = useState({})
+    const errors = {};
+    const checkBlank =
+            product.name === "" &&
+            product.quantity === "" &&
+            product.unit === "" &&
+            product.price === "" &&
+            product.status === "";
+
+    const handleAdd = () => {
+        if(product.name === "" && product.quantity === "" && product.unit === "" && product.price === "" && product.status === "") {
+            errors.name = "name cannot be blank.";
+            errors.quantity = "quantity cannot be blank.";
+            errors.unit = "unit cannot be blank.";
+            errors.price = "price cannot be blank.";
+            errors.status = "status cannot be blank.";
+            setShowErrors(errors)
+        } if (product.name === "" || product.quantity === "" || product.unit === "" || product.price === "" || product.status === "") {
+            errors.name = "name cannot be blank.";
+            errors.quantity = "quantity cannot be blank.";
+            errors.unit = "unit cannot be blank.";
+            errors.price = "price cannot be blank.";
+            errors.status = "status cannot be blank.";
+            setShowErrors(errors)
+        } else {
+            onAdd()
+        }
+    }
+
     return (
         <div className={`modal-add ${open ? "open" : ""}`}>
             <div className="add-container">
@@ -16,6 +48,7 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action }) {
                             itemProduct="item-product"
                             name="name"
                             handleChange={handleAddChange}
+                            errors={showErrors.name}
                         />
                         <AddItem
                             titleItem="Số lượng"
@@ -25,6 +58,7 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action }) {
                             itemProduct="item-product"
                             name="quantity"
                             handleChange={handleAddChange}
+                            errors={showErrors.quantity}
                         />
                         <AddItem
                             titleItem="Đơn vị"
@@ -34,6 +68,7 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action }) {
                             itemProduct="item-product"
                             name="unit"
                             handleChange={handleAddChange}
+                            errors={showErrors.unit}
                         />
                         <AddItem
                             titleItem="Giá"
@@ -43,6 +78,7 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action }) {
                             itemProduct="item-product"
                             name="price"
                             handleChange={handleAddChange}
+                            errors={showErrors.price}
                         />
                         <AddItem
                             titleItem="Trạng thái"
@@ -52,6 +88,7 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action }) {
                             itemProduct="item-product"
                             name="status"
                             handleChange={handleAddChange}
+                            errors={showErrors.status}
                         />
                         <AddItem
                             titleItem="Ngày tạo"
@@ -60,10 +97,10 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action }) {
                             itemTitle="item-title"
                             itemProduct="item-product"
                             name="date"
-                            handleChange={handleAddChange}
+                            handleChange={handleAddChange}                            
                         />
                         <div className="btn-container">
-                            <button className="add-btn" onClick={onAdd}>
+                            <button className="add-btn" onClick={handleAdd}>
                                 {action}
                             </button>
                             <button className="cancel-btn" onClick={onCancel}>

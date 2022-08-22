@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
-import { addProduct, editProduct } from "../../features/product/productSlice";
+import { addProduct, editProduct, deleteProduct } from "../../features/product/productSlice";
 import AddAlert from "../Modal/AddAlert";
 import ShowOnlyProduct from "./ShowOnlyProduct";
+import EditProduct from "./EditProduct";
 
 function Content() {
     const [open, setOpen] = useState(false);
@@ -41,8 +42,6 @@ function Content() {
         dispatch(addProduct(newProduct));
     };
 
-    const [showEdit, setShowEdit] = useState(false);
-
     const [editData, setEditData] = useState({
         name: "",
         quantity: "",
@@ -66,9 +65,7 @@ function Content() {
         setEditData(newData);
     };
 
-    const handleEditSubmit = (event) => {
-        event.preventDefault();
-
+    const handleEditSubmit = () => {
         const editedProduct = {
             id: editProductId,
             name: editData.name,
@@ -78,7 +75,6 @@ function Content() {
             status: editData.status,
             date: editData.date,
         };
-
         dispatch(editProduct(editedProduct));
         setEditProductId(null);
     };
@@ -98,6 +94,14 @@ function Content() {
         setEditData(formValues);
     };
 
+    const handleCancelClick = () => {
+        setEditProductId(null);
+    };
+
+    const handleDelete = (productId) => {
+        dispatch(deleteProduct(productId));
+    }
+
     return (
         <>
             <div className="content-header">
@@ -116,6 +120,7 @@ function Content() {
                         setOpen(false);
                     }}
                     action="Add"
+                    product={addData}
                 />
             </div>
 
@@ -136,9 +141,18 @@ function Content() {
                         {products.map((product) => (
                             <tr key={product.id}>
                                 {editProductId === product.id ? (
-                                    <AddAlert open={showEdit} />
+                                    <EditProduct
+                                        product={editData}
+                                        handleEditChange={handleEditDataChange}
+                                        handleCancelClick={handleCancelClick}
+                                        handleEditSubmit={handleEditSubmit}
+                                    />
                                 ) : (
-                                    <ShowOnlyProduct product={product} />
+                                    <ShowOnlyProduct
+                                        product={product}
+                                        onShow={handleEditClick}
+                                        onDelete={handleDelete}
+                                    />
                                 )}
                             </tr>
                         ))}

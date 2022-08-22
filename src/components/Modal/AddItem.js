@@ -5,7 +5,8 @@ function AddItem({
     itemProduct,
     itemTitle,
     handleChange,
-    name
+    name,
+    errors
 }) {
     return (
         <div className={itemProduct}>
@@ -16,6 +17,7 @@ function AddItem({
                 name={name}
                 onChange={handleChange}
             />
+            <span className="error-messages">{errors}</span>
         </div>
     );
 }

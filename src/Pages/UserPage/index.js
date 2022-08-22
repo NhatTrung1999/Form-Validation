@@ -1,28 +1,10 @@
-import { Header, Sidebar } from "../../components/User";
-import { useLocation, Navigate } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import { Content} from "../../components/User"
 
-function User() {
-    const location = useLocation();
-    if (location.pathname === "/") {
-        return <Navigate to="/signin" />;
-    }
-
+function UserPage() {
+    
     return (
-        <>
-            <div id="header">
-                <Header />
-            </div>
-            <div id="container">
-                <div id="sidebar">
-                    <Sidebar />
-                </div>
-                <div id="content">
-                    <Outlet />
-                </div>
-            </div>
-        </>
+        <Content />
     );
 }
 
-export default User;
+export default UserPage;
