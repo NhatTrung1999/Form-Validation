@@ -1,7 +1,12 @@
-import {Outlet} from "react-router-dom"
-import { Header, Sidebar} from '../../components/HomeLayout'
+import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { Header, Sidebar } from "../../components/HomeLayout";
 
 function HomePage() {
+    const location = useLocation();
+    if (location.pathname === "/") {
+        return <Navigate to="/user" />;
+    }
+
     return (
         <>
             <div id="header">
