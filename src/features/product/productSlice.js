@@ -1,5 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+let today = new Date();
+
+let date =
+    today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
+
 export const productSlice = createSlice({
     name: "product",
     initialState: {
@@ -9,27 +15,27 @@ export const productSlice = createSlice({
                 name: "Product 1",
                 quantity: "10",
                 unit: "Thùng",
-                price: 30000,
+                price: '30000',
                 status: 10,
-                date: "19/08/2022",
+                date: date,
             },
             {
                 id: 1,
                 name: "Product 2",
                 quantity: "20",
                 unit: "Cái",
-                price: 40000,
+                price: '40000',
                 status: 10,
-                date: "19/08/2022",
+                date: date,
             },
             {
                 id: 2,
                 name: "Product 3",
                 quantity: "30",
                 unit: "Kg",
-                price: 50000,
+                price: "50000",
                 status: 0,
-                date: "19/08/2022",
+                date: date,
             },
         ],
     },

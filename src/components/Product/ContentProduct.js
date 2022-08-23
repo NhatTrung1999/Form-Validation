@@ -6,6 +6,11 @@ import AddAlert from "../Modal/AddAlert";
 import ShowOnlyProduct from "./ShowOnlyProduct";
 import EditProduct from "./EditProduct";
 
+let today = new Date();
+
+let date =
+    today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
+
 function Content() {
     const [open, setOpen] = useState(false);
     const products = useSelector((state) => state.product.listProduct);
@@ -15,8 +20,7 @@ function Content() {
         quantity: "",
         unit: "",
         price: "",
-        status: "",
-        date: "",
+        date: date,
     });
 
     const handleAddChange = (event) => {
@@ -35,7 +39,6 @@ function Content() {
             quantity: addData.quantity,
             unit: addData.unit,
             price: addData.price,
-            status: addData.status,
             date: addData.date,
         };
 
@@ -71,7 +74,7 @@ function Content() {
             name: editData.name,
             quantity: editData.quantity,
             unit: editData.unit,
-            price: editData.price,
+            price: +editData.price,
             status: editData.status,
             date: editData.date,
         };
@@ -87,7 +90,7 @@ function Content() {
             name: product.name,
             quantity: product.quantity,
             unit: product.unit,
-            price: product.price,
+            price: +product.price,
             status: product.status,
             date: product.date,
         };

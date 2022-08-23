@@ -48,9 +48,9 @@ function LoginForm() {
             errors.password = "password cannot be blank.";
             setFormErrors(errors);
         } else if (users.find(userCheck) && users.find(passCheck)) {
-            if(users.find(userCheck).status === true) {
+            if (users.find(userCheck).status === true) {
                 navigate("/user", { replace: true });
-            localStorage.setItem("login", JSON.stringify(oldLogin));
+                localStorage.setItem("login", JSON.stringify(oldLogin));
             } else {
                 swal({
                     title: "No Active",

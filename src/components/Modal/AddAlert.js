@@ -79,25 +79,7 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action, produ
                             name="price"
                             handleChange={handleAddChange}
                             errors={showErrors.price}
-                        />
-                        <AddItem
-                            titleItem="Trạng thái"
-                            valueItem="Please enter product status..."
-                            inputItem="input-item"
-                            itemTitle="item-title"
-                            itemProduct="item-product"
-                            name="status"
-                            handleChange={handleAddChange}
-                            errors={showErrors.status}
-                        />
-                        <AddItem
-                            titleItem="Ngày tạo"
-                            valueItem="Please enter create date..."
-                            inputItem="input-item"
-                            itemTitle="item-title"
-                            itemProduct="item-product"
-                            name="date"
-                            handleChange={handleAddChange}                            
+                            type="number"
                         />
                         <div className="btn-container">
                             <button className="add-btn" onClick={handleAdd}>

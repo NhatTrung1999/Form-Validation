@@ -7,11 +7,8 @@ function EditProduct({
     handleEditSubmit,
     handleCancelClick,
 }) {
-    const products = useSelector((state) => state.product.listProduct);
+    // const products = useSelector((state) => state.product.listProduct);
     const [showErrors, setShowErrors] = useState({});
-    function formatMoney(n) {
-        return (Math.round(n * 100) / 100).toLocaleString();
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -37,7 +34,7 @@ function EditProduct({
             errors.price = "price cannot be blank.";
             errors.status = "status cannot be blank.";
             setShowErrors(errors);
-        } else if (isNaN(product.quantity) || isNaN(product.price)) {
+        } else if (isNaN(product.quantity) || isNaN(+product.price)) {
             errors.quantity = "quantity is invalid.";
             errors.price = "price is invalid.";
             setShowErrors(errors);
@@ -58,18 +55,18 @@ function EditProduct({
                     value={product.name}
                     onChange={handleEditChange}
                 ></input>
-                <span className="error-messages">{showErrors.name}</span>
+                <span className="error-messages">{!product.name ? showErrors.name : ""}</span>
             </td>
             <td>
                 <input
                     className="user-item"
-                    type="text"
+                    type="number"
                     placeholder="Enter a productname..."
                     name="quantity"
                     value={product.quantity}
                     onChange={handleEditChange}
                 ></input>
-                <span className="error-messages">{showErrors.quantity}</span>
+                <span className="error-messages">{!product.quantity ? showErrors.quantity : ""}</span>
             </td>
             <td>
                 <input
@@ -81,31 +78,22 @@ function EditProduct({
                     value={product.unit}
                     onChange={handleEditChange}
                 ></input>
-                <span className="error-messages">{showErrors.unit}</span>
+                <span className="error-messages">{!product.unit ? showErrors.unit : ""}</span>
             </td>
             <td>
                 <input
                     className="user-item"
-                    type="text"
+                    type="number"
                     required
                     placeholder="Enter a productname..."
                     name="price"
-                    value={formatMoney(product.price)}
+                    value={+product.price}
                     onChange={handleEditChange}
                 ></input>
-                <span className="error-messages">{showErrors.price}</span>
+                <span className="error-messages">{!product.price ? showErrors.price : ""}</span>
             </td>
             <td>
-                <input
-                    className="user-item"
-                    type="text"
-                    required
-                    placeholder="Enter a productname..."
-                    name="status"
-                    value={product.status}
-                    onChange={handleEditChange}
-                ></input>
-                <span className="error-messages">{showErrors.status}</span>
+                {Number(product.quantity) === 0 ? "Hết hàng" : "Còn hàng"}
             </td>
             <td>{product.date}</td>
             <td>

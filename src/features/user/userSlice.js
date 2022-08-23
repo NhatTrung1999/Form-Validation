@@ -11,11 +11,12 @@ export const userSlice = createSlice({
         listUser: [
             {
                 id: 0,
-                username: "Mary",
-                password: 'mary1234',
-                email: "mary@gmail.com",
+                username: "admin",
+                password: 'admin',
+                email: "admin@gmail.com",
                 date: date,
                 status: true,
+                role: 'admin'
             },
             {
                 id: 1,
@@ -24,6 +25,7 @@ export const userSlice = createSlice({
                 email: "peter@gmail.com",
                 date: date,
                 status: true,
+                role: 'user'
             },
             {
                 id: 2,
@@ -32,6 +34,7 @@ export const userSlice = createSlice({
                 email: "peter@gmail.com",
                 date: date,
                 status: false,
+                role: 'user'
             },
         ],
     },

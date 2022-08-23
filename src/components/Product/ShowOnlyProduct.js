@@ -13,8 +13,8 @@ function ShowOnlyProduct({ product, onShow, onDelete }) {
             <td>{product.name}</td>
             <td>{product.quantity}</td>
             <td>{product.unit}</td>
-            <td>{formatMoney(product.price)}</td>
-            <td>{Number(product.status) === 0 ? "Hết hàng" : "Còn hàng"}</td>
+            <td>{formatMoney(product.price)} {"VNĐ"}</td>
+            <td>{Number(product.quantity) === 0 ? "Hết hàng" : "Còn hàng"}</td>
             <td>{product.date}</td>
             <td>
                 <div className="action">

@@ -2,33 +2,30 @@ import { NavLink } from "react-router-dom";
 
 function Sidebar() {
     let activeClassName = {
-        marginBottom: "10px",
-        padding: " 20px 0 20px 20px",
-        color: "#DCD7C9",
-        cursor: "pointer",
+        backgroundColor: "#DCD7C9",
+        color: "#2C3639",
+        borderRadius: "4px",
     };
 
     return (
         <>
             <ul className="sidebar-container">
-                <NavLink to="user">
-                    <li
-                        className={({ isActive }) =>
-                            isActive ? "list-user active" : "undefined"
-                        }
+                <li >
+                    <NavLink
+                        to="user"
+                        className={`list-user ${({ isActive }) => isActive ? activeClassName : undefined}`}
                     >
                         Danh sách người dùng
-                    </li>
-                </NavLink>
-                <NavLink to="product">
-                    <li
-                        className={({ isActive }) =>
-                            isActive ? "list-product active" : "undefined"
-                        }
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="product"
+                        className={`list-product ${({ isActive }) => isActive ? activeClassName : undefined}`}
                     >
                         Danh sách sản phẩm
-                    </li>
-                </NavLink>
+                    </NavLink>
+                </li>
             </ul>
         </>
     );

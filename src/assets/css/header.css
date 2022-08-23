@@ -25,3 +25,21 @@
     background-repeat: no-repeat;
     margin: 0 10px;
 }
+
+.logout {
+    position: absolute;
+    color: black;
+    top: 65px;
+    right: 5px;
+    background: #eee;
+    padding: 0 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    display: none;
+}
+
+.logout.open {
+    display: block;
+}
+
+

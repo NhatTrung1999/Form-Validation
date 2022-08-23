@@ -53,8 +53,7 @@ function Content() {
         setEditFormData(newFormData);
     };
 
-    const handleEditSubmit = (e) => {
-        e.preventDefault();
+    const handleEditSubmit = () => {
 
         dispatch(
             editUser({

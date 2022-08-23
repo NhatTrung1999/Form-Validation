@@ -1,9 +1,33 @@
+import { useState} from "react"
+
 function EditUser({
     user,
     handleEditFormChange,
     handleCancelClick,
     handleEditSubmit,
 }) {
+
+    const [showErrors, setShowErrors] = useState({})
+
+    const formatEmail =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const errors = {};
+        if(user.username === "" || user.email === "") {
+            errors.username = 'Username is required'
+            errors.email = 'Email is required'
+            setShowErrors(errors)
+            console.log(errors)
+        } if (!formatEmail.test(user.email)) {
+            errors.email = 'Email is not valid'
+            setShowErrors(errors)
+        } else {
+            handleEditSubmit()
+        } 
+    }
+
     return (
         <>
             <td>
@@ -15,7 +39,8 @@ function EditUser({
                     name="username"
                     value={user.username}
                     onChange={handleEditFormChange}
-                ></input>
+                />
+                <span className="error-messages">{showErrors.username}</span>
             </td>
             <td>
                 <input
@@ -27,6 +52,7 @@ function EditUser({
                     value={user.email}
                     onChange={handleEditFormChange}
                 ></input>
+                <span className="error-messages">{showErrors.email}</span>
             </td>
             <td>{user.date}</td>
             <td>
@@ -44,7 +70,7 @@ function EditUser({
                     <button
                         type="submit"
                         className="save"
-                        onClick={handleEditSubmit}
+                        onClick={handleSubmit}
                     ></button>
                     <button
                         className="cancel"
