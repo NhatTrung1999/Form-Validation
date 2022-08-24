@@ -16,7 +16,6 @@ export const productSlice = createSlice({
                 quantity: "10",
                 unit: "Thùng",
                 price: '30000',
-                status: 10,
                 date: date,
             },
             {
@@ -25,7 +24,6 @@ export const productSlice = createSlice({
                 quantity: "20",
                 unit: "Cái",
                 price: '40000',
-                status: 10,
                 date: date,
             },
             {
@@ -34,7 +32,6 @@ export const productSlice = createSlice({
                 quantity: "30",
                 unit: "Kg",
                 price: "50000",
-                status: 0,
                 date: date,
             },
         ],

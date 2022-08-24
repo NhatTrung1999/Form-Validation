@@ -7,7 +7,7 @@ function AddItem({
     handleChange,
     name,
     errors,
-    type
+    type,
 }) {
     return (
         <div className={itemProduct}>

@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
-import { addProduct, editProduct, deleteProduct } from "../../features/product/productSlice";
+import {
+    addProduct,
+    editProduct,
+    deleteProduct,
+} from "../../features/product/productSlice";
 import AddAlert from "../Modal/AddAlert";
 import ShowOnlyProduct from "./ShowOnlyProduct";
 import EditProduct from "./EditProduct";
+import { validateProduct } from "./ValidateProduct";
 
 let today = new Date();
 
@@ -14,6 +19,7 @@ let date =
 function Content() {
     const [open, setOpen] = useState(false);
     const products = useSelector((state) => state.product.listProduct);
+    const [showErrors, setShowErrors] = useState({});
     const dispatch = useDispatch();
     const [addData, setAddData] = useState({
         name: "",
@@ -42,7 +48,14 @@ function Content() {
             date: addData.date,
         };
 
-        dispatch(addProduct(newProduct));
+        const errors = validateProduct(newProduct);
+
+        if (Object.keys(errors).length > 0) {
+            setShowErrors(errors);
+        } else {
+            dispatch(addProduct(newProduct));
+            setOpen(false);
+        }
     };
 
     const [editData, setEditData] = useState({
@@ -78,8 +91,15 @@ function Content() {
             status: editData.status,
             date: editData.date,
         };
-        dispatch(editProduct(editedProduct));
-        setEditProductId(null);
+
+        const errors = validateProduct(editedProduct);
+
+        if (Object.keys(errors).length > 0) {
+            setShowErrors(errors);
+        } else {
+            dispatch(editProduct(editedProduct));
+            setEditProductId(null);
+        }
     };
 
     const handleEditClick = (event, product) => {
@@ -103,7 +123,7 @@ function Content() {
 
     const handleDelete = (productId) => {
         dispatch(deleteProduct(productId));
-    }
+    };
 
     return (
         <>
@@ -120,9 +140,9 @@ function Content() {
                     handleAddChange={handleAddChange}
                     onAdd={() => {
                         handleAdd();
-                        setOpen(false);
                     }}
                     action="Add"
+                    errorMessages={showErrors}
                     product={addData}
                 />
             </div>
@@ -149,11 +169,12 @@ function Content() {
                                         handleEditChange={handleEditDataChange}
                                         handleCancelClick={handleCancelClick}
                                         handleEditSubmit={handleEditSubmit}
+                                        errorMessages={showErrors}
                                     />
                                 ) : (
                                     <ShowOnlyProduct
                                         product={product}
-                                        onShow={handleEditClick}
+                                        onEditClick={handleEditClick}
                                         onDelete={handleDelete}
                                     />
                                 )}

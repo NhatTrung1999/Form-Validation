@@ -1,38 +1,17 @@
 import AddItem from "./AddItem";
 import "./addAlert.css";
-import productSlice from "../../features/product/productSlice";
-import {useState} from "react";
 
-function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action, product }) {
-
-    const [showErrors, setShowErrors] = useState({})
-    const errors = {};
-    const checkBlank =
-            product.name === "" &&
-            product.quantity === "" &&
-            product.unit === "" &&
-            product.price === "" &&
-            product.status === "";
-
-    const handleAdd = () => {
-        if(product.name === "" && product.quantity === "" && product.unit === "" && product.price === "" && product.status === "") {
-            errors.name = "name cannot be blank.";
-            errors.quantity = "quantity cannot be blank.";
-            errors.unit = "unit cannot be blank.";
-            errors.price = "price cannot be blank.";
-            errors.status = "status cannot be blank.";
-            setShowErrors(errors)
-        } if (product.name === "" || product.quantity === "" || product.unit === "" || product.price === "" || product.status === "") {
-            errors.name = "name cannot be blank.";
-            errors.quantity = "quantity cannot be blank.";
-            errors.unit = "unit cannot be blank.";
-            errors.price = "price cannot be blank.";
-            errors.status = "status cannot be blank.";
-            setShowErrors(errors)
-        } else {
-            onAdd()
-        }
-    }
+function AddAlert({
+    open,
+    onCancel,
+    onAdd,
+    handleAddChange,
+    title,
+    action,
+    product,
+    errorMessages,
+}) {
+    const { name, quantity, price, unit } = errorMessages;
 
     return (
         <div className={`modal-add ${open ? "open" : ""}`}>
@@ -48,7 +27,7 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action, produ
                             itemProduct="item-product"
                             name="name"
                             handleChange={handleAddChange}
-                            errors={showErrors.name}
+                            errors={!product.name ? name : ""}
                         />
                         <AddItem
                             titleItem="Số lượng"
@@ -57,19 +36,24 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action, produ
                             itemTitle="item-title"
                             itemProduct="item-product"
                             name="quantity"
+                            type="number"
                             handleChange={handleAddChange}
-                            errors={showErrors.quantity}
+                            errors={!product.quantity ? quantity : ""}
                         />
-                        <AddItem
-                            titleItem="Đơn vị"
-                            valueItem="Please enter product unit..."
-                            inputItem="input-item"
-                            itemTitle="item-title"
-                            itemProduct="item-product"
+                        <h2 className="item-title">Đơn vị</h2>
+                        <select
                             name="unit"
-                            handleChange={handleAddChange}
-                            errors={showErrors.unit}
-                        />
+                            onChange={handleAddChange}
+                            className="input-item"
+                        >
+                            <option value={"Select"}>--Select Unit--</option>
+                            <option value={"Thùng"}>Thùng</option>
+                            <option value={"Cái"}>Cái</option>
+                            <option value={"Kg"}>Kg</option>
+                        </select>
+                        <span className="error-messages">
+                            {product.unit !== "Kg" ? unit : ""}
+                        </span>
                         <AddItem
                             titleItem="Giá"
                             valueItem="Please enter product price..."
@@ -78,11 +62,11 @@ function AddAlert({ open, onCancel, onAdd, handleAddChange, title, action, produ
                             itemProduct="item-product"
                             name="price"
                             handleChange={handleAddChange}
-                            errors={showErrors.price}
+                            errors={!product.price ? price : ""}
                             type="number"
                         />
                         <div className="btn-container">
-                            <button className="add-btn" onClick={handleAdd}>
+                            <button className="add-btn" onClick={onAdd}>
                                 {action}
                             </button>
                             <button className="cancel-btn" onClick={onCancel}>

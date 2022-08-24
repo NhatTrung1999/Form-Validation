@@ -4,11 +4,12 @@ import { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 import EditUser from "./EditUser";
 import ShowOnlyRow from "./ShowOnlyRow";
+import { validateUser } from "./ValidateUser";
 
 function Content() {
     const users = useSelector((state) => state.user.listUser);
-
     const dispatch = useDispatch();
+    const [showErrors, setShowErrors] = useState({});
 
     let today = new Date();
 
@@ -23,7 +24,7 @@ function Content() {
         username: "",
         email: "",
         date: date,
-        status: false
+        status: false,
     });
 
     const [editContactId, setEditContactId] = useState(null);
@@ -41,7 +42,7 @@ function Content() {
         );
     };
 
-    const handleEditFormChange = (event) => {
+    const handleEditDataChange = (event) => {
         event.preventDefault();
 
         const fieldName = event.target.getAttribute("name");
@@ -54,18 +55,22 @@ function Content() {
     };
 
     const handleEditSubmit = () => {
+        const newEditData = {
+            id: editContactId,
+            username: editFormData.username,
+            email: editFormData.email,
+            date: editFormData.date,
+            status: editFormData.status,
+        };
 
-        dispatch(
-            editUser({
-                id: editContactId,
-                username: editFormData.username,
-                email: editFormData.email,
-                date: editFormData.date,
-                status: editFormData.status,
-            })
-        );
+        const errors = validateUser(newEditData);
 
-        setEditContactId(null);
+        if (Object.keys(errors).length > 0) {
+            setShowErrors(errors);
+        } else {
+            dispatch(editUser(newEditData));
+            setEditContactId(null);
+        }
     };
 
     const handleEditClick = (event, user) => {
@@ -116,11 +121,12 @@ function Content() {
                                 {editContactId === user.id ? (
                                     <EditUser
                                         user={editFormData}
-                                        handleEditFormChange={
-                                            handleEditFormChange
+                                        handleEditDataChange={
+                                            handleEditDataChange
                                         }
                                         handleCancelClick={handleCancelClick}
                                         handleEditSubmit={handleEditSubmit}
+                                        errorMessages={showErrors}
                                     />
                                 ) : (
                                     <ShowOnlyRow
