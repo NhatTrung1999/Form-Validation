@@ -49,7 +49,7 @@ function LoginForm() {
             setFormErrors(errors);
         } else if (users.find(userCheck) && users.find(passCheck)) {
             if (users.find(userCheck).status === true) {
-                navigate("/user", { replace: true });
+                navigate("/dashboard/home/user", { replace: true });
                 localStorage.setItem("login", JSON.stringify(oldLogin));
             } else {
                 swal({

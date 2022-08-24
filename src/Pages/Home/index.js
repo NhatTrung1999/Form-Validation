@@ -2,10 +2,11 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { Header, Sidebar } from "../../components/HomeLayout";
 
 function HomePage() {
-    const location = useLocation();
-    if (location.pathname === "/") {
-        return <Navigate to="/user" />;
-    }
+    // const location = useLocation();
+    // // const user = JSON.parse(localStorage.getItem("login"));
+    // if (location.pathname === "/") {
+    //     return <Navigate to="/user" replace />;
+    // }
 
     return (
         <>
