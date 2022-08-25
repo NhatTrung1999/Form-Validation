@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import {
@@ -38,6 +38,20 @@ function Content() {
         setAddData(newData);
     };
 
+    const handleBlur = (e) => {
+        const data = e.target.name;
+        const newData = { ...addData };
+        const errors = newData[data];
+        if (!errors) {
+            setShowErrors({
+                name: "product name cannot be blank.",
+                quantity: "quantiy cannot be blank.",
+                price: "price cannot be blank.",
+            });
+        }
+    };
+
+    
     const handleAdd = () => {
         const newProduct = {
             id: nanoid(),
@@ -125,8 +139,6 @@ function Content() {
         dispatch(deleteProduct(productId));
     };
 
-    
-
     return (
         <>
             <div className="content-header">
@@ -146,6 +158,7 @@ function Content() {
                     action="Add"
                     errorMessages={showErrors}
                     product={addData}
+                    handleBlur={handleBlur}
                 />
             </div>
 

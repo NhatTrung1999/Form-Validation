@@ -12,9 +12,13 @@ export const validateProduct = (values) => {
         errors.name = "product name cannot be blank.";
         errors.quantity = "product quantity cannot be blank.";
         errors.price = "product price cannot be blank.";
-    } else if (formatUnit.test(values.quantity) && values.unit !== "Kg") {
+    }
+     else if (formatUnit.test(values.quantity) && values.unit !== "Kg") {
         errors.unit = "quantity is not valid";
     }
 
     return errors;
 };
+
+
+

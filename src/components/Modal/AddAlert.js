@@ -12,16 +12,10 @@ function AddAlert({
     action,
     product,
     errorMessages,
+    handleBlur
 }) {
     const { name, quantity, price, unit } = errorMessages;
-    const [mess, setMess] = useState({});
-
-    const handleBlur = () => {
-        const blurMess = validateProduct(product);
-        if (Object.keys(blurMess).length > 0) {
-            setMess(blurMess);
-        }
-    };
+    
 
     return (
         <div className={`modal-add ${open ? "open" : ""}`}>
@@ -38,7 +32,7 @@ function AddAlert({
                             name="name"
                             handleChange={handleAddChange}
                             handleBlur={handleBlur}
-                            errors={!product.name ? mess.name || name : ""}
+                            errors={!product.name ? name : ""}
                         />
                         <AddItem
                             titleItem="Số lượng"
@@ -51,8 +45,9 @@ function AddAlert({
                             handleChange={handleAddChange}
                             handleBlur={handleBlur}
                             errors={
+                                // !product.quantity ? quantity : ""
                                 !product.quantity
-                                    ? mess.quantity || quantity
+                                    ? quantity
                                     : product.unit !== "Kg"
                                     ? unit
                                     : ""
@@ -78,7 +73,7 @@ function AddAlert({
                             name="price"
                             handleChange={handleAddChange}
                             handleBlur={handleBlur}
-                            errors={!product.price ? mess.price || price : ""}
+                            errors={!product.price ? price || price : ""}
                             type="number"
                         />
                         <div className="btn-container">
