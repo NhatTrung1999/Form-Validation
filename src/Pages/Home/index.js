@@ -1,20 +1,22 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import { Header, Sidebar } from "../../components/HomeLayout";
 
 function HomePage() {
-    // const location = useLocation();
-    // // const user = JSON.parse(localStorage.getItem("login"));
-    // if (location.pathname === "/") {
-    //     return <Navigate to="/user" replace />;
-    // }
+
+    const [show, setShow] = useState(false);
+    
+    const handleClick = () => {
+        setShow(!show);
+    }
 
     return (
         <>
             <div id="header">
-                <Header />
+                <Header onClick={handleClick} />
             </div>
             <div id="container">
-                <div id="sidebar">
+                <div className={`sidebar ${show ? "show" : ""}`}>
                     <Sidebar />
                 </div>
                 <div id="content">

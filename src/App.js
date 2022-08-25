@@ -12,6 +12,7 @@ import { SignUp } from "./Pages/SignUp";
 import NotFound from "./Pages/NotFound";
 import UserPage from "./Pages/UserPage";
 import ProductPage from "./Pages/ProductPage";
+import RolePage from "./components/RolePage";
 
 function App() {
     return (
@@ -21,7 +22,9 @@ function App() {
             </Route>
             <Route path="/dashboard" element={<ProtectedPages />}>
                 <Route path="home" element={<HomePage />}>
-                    <Route path="user" element={<UserPage />} />
+                    <Route element={<RolePage />}>
+                        <Route path="user" element={<UserPage />} />
+                    </Route>
                     <Route path="product" element={<ProductPage />} />
                 </Route>
             </Route>

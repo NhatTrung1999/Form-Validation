@@ -4,9 +4,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
 
-
-
-
 #header {
     background: #2c3639;
     height: 70px;
@@ -20,10 +17,15 @@
     height: calc(100vh - 70px);
 }
 
-#sidebar {
+.sidebar {
     width: 350px;
     background: #3f4e4f;
     text-align: center;
+    display: none;
+}
+
+.sidebar.show {
+    display: block;
 }
 
 #content {
@@ -35,5 +37,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-

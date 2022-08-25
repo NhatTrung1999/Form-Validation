@@ -1,5 +1,7 @@
 import AddItem from "./AddItem";
 import "./addAlert.css";
+import { useState } from "react";
+import { validateProduct } from "../Product/ValidateProduct";
 
 function AddAlert({
     open,
@@ -12,6 +14,14 @@ function AddAlert({
     errorMessages,
 }) {
     const { name, quantity, price, unit } = errorMessages;
+    const [mess, setMess] = useState({});
+
+    const handleBlur = () => {
+        const blurMess = validateProduct(product);
+        if (Object.keys(blurMess).length > 0) {
+            setMess(blurMess);
+        }
+    };
 
     return (
         <div className={`modal-add ${open ? "open" : ""}`}>
@@ -27,7 +37,8 @@ function AddAlert({
                             itemProduct="item-product"
                             name="name"
                             handleChange={handleAddChange}
-                            errors={!product.name ? name : ""}
+                            handleBlur={handleBlur}
+                            errors={!product.name ? mess.name || name : ""}
                         />
                         <AddItem
                             titleItem="Số lượng"
@@ -38,7 +49,14 @@ function AddAlert({
                             name="quantity"
                             type="number"
                             handleChange={handleAddChange}
-                            errors={!product.quantity ? quantity : ""}
+                            handleBlur={handleBlur}
+                            errors={
+                                !product.quantity
+                                    ? mess.quantity || quantity
+                                    : product.unit !== "Kg"
+                                    ? unit
+                                    : ""
+                            }
                         />
                         <h2 className="item-title">Đơn vị</h2>
                         <select
@@ -51,9 +69,6 @@ function AddAlert({
                             <option value={"Cái"}>Cái</option>
                             <option value={"Kg"}>Kg</option>
                         </select>
-                        <span className="error-messages">
-                            {product.unit !== "Kg" ? unit : ""}
-                        </span>
                         <AddItem
                             titleItem="Giá"
                             valueItem="Please enter product price..."
@@ -62,7 +77,8 @@ function AddAlert({
                             itemProduct="item-product"
                             name="price"
                             handleChange={handleAddChange}
-                            errors={!product.price ? price : ""}
+                            handleBlur={handleBlur}
+                            errors={!product.price ? mess.price || price : ""}
                             type="number"
                         />
                         <div className="btn-container">

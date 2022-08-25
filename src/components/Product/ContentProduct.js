@@ -125,6 +125,8 @@ function Content() {
         dispatch(deleteProduct(productId));
     };
 
+    
+
     return (
         <>
             <div className="content-header">

@@ -8,6 +8,7 @@ function AddItem({
     name,
     errors,
     type,
+    handleBlur
 }) {
     return (
         <div className={itemProduct}>
@@ -17,6 +18,7 @@ function AddItem({
                 placeholder={valueItem}
                 name={name}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 type={type}
             />
             <span className="error-messages">{errors}</span>

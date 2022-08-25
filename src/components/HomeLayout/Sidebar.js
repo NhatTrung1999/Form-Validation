@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Sidebar() {
     let activeClassName = {
@@ -7,13 +8,35 @@ function Sidebar() {
         borderRadius: "4px",
     };
 
+    // let hide = false;
+    const role = JSON.parse(localStorage.getItem("login"));
+    const roles = useSelector((state) => state.user.listUser);
+    const findUser = roles.find((user) => user.username === role.username);
+    const listProduct = (
+        <ul className="sidebar-container">
+            <li>
+                <NavLink
+                    to="product"
+                    className={`list-product ${({ isActive }) =>
+                        isActive ? activeClassName : undefined}`}
+                >
+                    Danh sách sản phẩm
+                </NavLink>
+            </li>
+        </ul>
+    );
+    if (findUser.role !== "admin") {
+        return listProduct;
+    }
+
     return (
         <>
             <ul className="sidebar-container">
-                <li >
+                <li>
                     <NavLink
                         to="user"
-                        className={`list-user ${({ isActive }) => isActive ? activeClassName : undefined}`}
+                        className={`list-user ${({ isActive }) =>
+                            isActive ? activeClassName : undefined}`}
                     >
                         Danh sách người dùng
                     </NavLink>
@@ -21,7 +44,8 @@ function Sidebar() {
                 <li>
                     <NavLink
                         to="product"
-                        className={`list-product ${({ isActive }) => isActive ? activeClassName : undefined}`}
+                        className={`list-product ${({ isActive }) =>
+                            isActive ? activeClassName : undefined}`}
                     >
                         Danh sách sản phẩm
                     </NavLink>

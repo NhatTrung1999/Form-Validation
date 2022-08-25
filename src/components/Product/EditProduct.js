@@ -1,3 +1,4 @@
+import { useState } from "react";
 function EditProduct({
     product,
     handleEditChange,
@@ -6,6 +7,13 @@ function EditProduct({
     errorMessages,
 }) {
     const { name, quantity, price, unit } = errorMessages;
+    const [mess, setMess] = useState({});
+
+    const handleBlur = () => {
+        const x = {};
+        x.name = 'dvldfvbldf';
+        setMess(x)
+    }
 
     return (
         <>
@@ -17,9 +25,10 @@ function EditProduct({
                     name="name"
                     value={product.name}
                     onChange={handleEditChange}
+                    onBlur={handleBlur}
                 ></input>
                 <span className="error-messages">
-                    {!product.name ? name : ""}
+                    {!product.name ? mess.name || name : ""}
                 </span>
             </td>
             <td>
@@ -32,7 +41,7 @@ function EditProduct({
                     onChange={handleEditChange}
                 ></input>
                 <span className="error-messages">
-                    {!product.quantity ? quantity : ""}
+                    {!product.quantity ? quantity : product.unit !== "Kg" ? unit : ""}
                 </span>
             </td>
             <td>
@@ -46,9 +55,6 @@ function EditProduct({
                     <option value={"Cái"}>Cái</option>
                     <option value={"Kg"}>Kg</option>
                 </select>
-                <span className="error-messages">
-                    {product.unit !== "Kg" ? unit : ""}
-                </span>
             </td>
             <td>
                 <input
