@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import {
@@ -30,28 +30,10 @@ function Content() {
     });
 
     const handleAddChange = (event) => {
-        event.preventDefault();
-        const fieldName = event.target.getAttribute("name");
-        const fieldValue = event.target.value;
-        const newData = { ...addData };
-        newData[fieldName] = fieldValue;
-        setAddData(newData);
+        const { name, value } = event.target;
+        setAddData({ ...addData, [name]: value });
     };
 
-    const handleBlur = (e) => {
-        const data = e.target.name;
-        const newData = { ...addData };
-        const errors = newData[data];
-        if (!errors) {
-            setShowErrors({
-                name: "product name cannot be blank.",
-                quantity: "quantiy cannot be blank.",
-                price: "price cannot be blank.",
-            });
-        }
-    };
-
-    
     const handleAdd = () => {
         const newProduct = {
             id: nanoid(),
@@ -61,15 +43,15 @@ function Content() {
             price: addData.price,
             date: addData.date,
         };
-
-        const errors = validateProduct(newProduct);
-
-        if (Object.keys(errors).length > 0) {
-            setShowErrors(errors);
-        } else {
-            dispatch(addProduct(newProduct));
-            setOpen(false);
-        }
+        dispatch(addProduct(newProduct));
+        setAddData({
+            ...addData,
+            name: "",
+            quantity: "",
+            price: "",
+            unit: "--Select Unit--",
+        });
+        setOpen(false);
     };
 
     const [editData, setEditData] = useState({
@@ -78,7 +60,7 @@ function Content() {
         unit: "",
         price: "",
         status: "",
-        date: "",
+        date: date,
     });
 
     const [editProductId, setEditProductId] = useState(null);
@@ -88,10 +70,8 @@ function Content() {
 
         const fieldName = event.target.getAttribute("name");
         const fieldValue = event.target.value;
-
         const newData = { ...editData };
         newData[fieldName] = fieldValue;
-
         setEditData(newData);
     };
 
@@ -101,7 +81,7 @@ function Content() {
             name: editData.name,
             quantity: editData.quantity,
             unit: editData.unit,
-            price: +editData.price,
+            price: editData.price,
             status: editData.status,
             date: editData.date,
         };
@@ -124,7 +104,7 @@ function Content() {
             name: product.name,
             quantity: product.quantity,
             unit: product.unit,
-            price: +product.price,
+            price: product.price,
             status: product.status,
             date: product.date,
         };
@@ -156,9 +136,7 @@ function Content() {
                         handleAdd();
                     }}
                     action="Add"
-                    errorMessages={showErrors}
                     product={addData}
-                    handleBlur={handleBlur}
                 />
             </div>
 

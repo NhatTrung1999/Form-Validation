@@ -20,19 +20,21 @@ export const userSlice = createSlice({
             },
             {
                 id: 1,
-                username: "Peter",
-                password: "peter5678",
-                email: "peter@gmail.com",
+                username: "user1",
+                password: "user1234",
+                email: "user1@gmail.com",
                 date: date,
+                phone: "0123456789",
                 status: true,
                 role: 'user'
             },
             {
                 id: 2,
-                username: "John",
-                password: "john12345",
-                email: "peter@gmail.com",
+                username: "user2",
+                password: "user5678",
+                email: "user2@gmail.com",
                 date: date,
+                phone: "0987654321",
                 status: false,
                 role: 'user'
             },

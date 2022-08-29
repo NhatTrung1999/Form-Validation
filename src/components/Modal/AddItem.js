@@ -6,6 +6,7 @@ function AddItem({
     itemTitle,
     handleChange,
     name,
+    value,
     errors,
     type,
     handleBlur
@@ -17,6 +18,7 @@ function AddItem({
                 className={inputItem}
                 placeholder={valueItem}
                 name={name}
+                value={value}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 type={type}
